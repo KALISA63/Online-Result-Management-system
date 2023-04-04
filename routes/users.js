@@ -7,7 +7,7 @@ const router = express.Router();
 const bcrypt = require("bcrypt");
 const multer = require("multer");
 const cloudinary=require('../cap/cloudinary.js')
-const JWT=require ('jsonwebtoken')
+const jwt=require ('jsonwebtoken')
 
 
 
@@ -35,7 +35,6 @@ router.post('/register',async(req,res)=>{
       const hashedPassword=await bcrypt.hash(req.body.password,salt);
       const user=new User(req.body)
       const userExist=await User.findOne({email:req.body.email});
-      //const accessToken=sign.sign({_id:user.id,role:user.role})
       if(userExist){
           return res.status(404).json({message:"Email exists, just try an other different email!!"})
       }
@@ -58,7 +57,8 @@ router.post("/login",async(req,res)=>
             const validated=await bcrypt.compare(req.body.password, user.password)
             !validated&&res.status(400).json("wrong Password");
             const {password, ...others}=user._doc;
-            res.status(200).json(others)
+            const token=jwt.sign({_id:user.id,role:user.role},process.env.SCRETKEY,{expiresIn:'1d'})
+            res.status(200).json({others,token});
         }catch(err){
             console.log(err);
             res.status(500).json(err);
