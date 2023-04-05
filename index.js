@@ -23,7 +23,8 @@ mongoose
   .catch((err) => console.log(err));
 
 
-  app.use(bodyParser.json())
+app.use(bodyParser.json())
+app.use(cors())
 app.listen("6000", () => {
   console.log("KALISA Jacques");
 });
