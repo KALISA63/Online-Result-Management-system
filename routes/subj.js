@@ -8,7 +8,10 @@ const { verifyAdmin } = require('../middlewares/verify');
 
 // REGISTER Subject
 
-router.post('/register',verifyAdmin, async (req, res)=>{
+// router.post('/register',verifyAdmin, async (req, res)=>{
+
+router.post('/register', async (req, res)=>{
+
     const newSubject = new Subject(req.body);
     try {
         const savedSubject  = await newSubject.save();
