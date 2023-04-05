@@ -8,6 +8,7 @@ const departRoute = require("./routes/depart.js");
 const subjRoute = require("./routes/subj.js");
 const router = require("./routes/users");
 const bodyParser = require('body-parser');
+const cors=require('cors')
 // const swaggerUi=require('swagger-ui-express');
 // const swaggerJSDoc= require("swagger-jsdoc");
 // const swagDocs=require('./SwagDocs/swagFile');
