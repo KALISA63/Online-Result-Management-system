@@ -2,6 +2,7 @@ const express= require('express');
 const router=express.Router();
 const Subject=require("../models/Subjects")
 const User=require('../models/User')
+const Mark=require
 const Department = require('../models/Department.js');
 const { verifyAdmin } = require('../middlewares/verify');
 
@@ -85,6 +86,8 @@ router.get("/getAll",async(req, res)=>
         res.status(500).json("you are not admin")
     }
 })
-  
+
 
 module.exports=router
+
+

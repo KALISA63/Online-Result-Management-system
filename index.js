@@ -6,6 +6,7 @@ const multer = require("multer");
 const userRoute = require("./routes/users");
 const departRoute = require("./routes/depart.js");
 const subjRoute = require("./routes/subj.js");
+const markRoute= require("./routes/mark.js")
 const router = require("./routes/users");
 const bodyParser = require('body-parser');
 const cors=require('cors')
@@ -36,4 +37,5 @@ app.get("/", (req, res) => {
 app.use("/users",userRoute);
 app.use("/depart", departRoute);
 app.use("/subjects", subjRoute);
+app.use("/mark",markRoute);
 // swagDocs(app);

@@ -32,4 +32,16 @@ const verifyAdmin = (req,res,next) =>{
     })
 }
 
-module.exports = { verifyToken,verifyAdmin };
+const verifyLecture = (req,res,next) =>{
+  verifyToken(req,res,() =>{
+      if(req.user.role === 'lecture'){
+          next();
+      }
+      else{
+          return res.status(401).json({status:"error",error:"You are not allowed"});
+      }
+  })
+}
+
+
+module.exports = { verifyToken,verifyAdmin, verifyLecture};
