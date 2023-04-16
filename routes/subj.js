@@ -3,6 +3,7 @@ const router=express.Router();
 const Subject=require("../models/Subjects")
 const User=require('../models/User')
 const Department = require('../models/Department.js');
+const { verifyAdmin } = require('../middlewares/verify');
 
 
 // REGISTER Subject
@@ -23,7 +24,7 @@ router.post('/register', async (req, res)=>{
         //UPDAT Subject
 
 
-        router.patch("/editById/:id", async (req,res)=>{
+        router.put("/editById/:id",verifyAdmin, async (req,res)=>{
             try{
                 const subject=await Subject.findById(req.params.id);
                 if(!subject){

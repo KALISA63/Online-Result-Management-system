@@ -27,7 +27,7 @@ mongoose
 app.use(bodyParser.json())
 app.use(cors())
 app.listen("6000", () => {
-  console.log("KALISA Jacques");
+  console.log("KALISA Jacques,listening on port : 6000");
 });
 
 app.get("/", (req, res) => {
