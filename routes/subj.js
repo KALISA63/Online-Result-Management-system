@@ -2,17 +2,12 @@ const express= require('express');
 const router=express.Router();
 const Subject=require("../models/Subjects")
 const User=require('../models/User')
-const Mark=require
 const Department = require('../models/Department.js');
-const { verifyAdmin } = require('../middlewares/verify');
 
 
 // REGISTER Subject
 
-router.post('/register',verifyAdmin, async (req, res)=>{
-
-// router.post('/register', async (req, res)=>{
-
+router.post('/register', async (req, res)=>{
     const newSubject = new Subject(req.body);
     try {
         const savedSubject  = await newSubject.save();
@@ -28,21 +23,16 @@ router.post('/register',verifyAdmin, async (req, res)=>{
         //UPDAT Subject
 
 
-        router.patch("/editById/:id",verifyAdmin, async (req,res)=>{
+        router.patch("/editById/:id", async (req,res)=>{
             try{
                 const subject=await Subject.findById(req.params.id);
-                if (req.body.subjectId === req.params.id) {
-                try{
-                    const updatedSubject=await Subject.findByIdAndUpdate(req.params.id,{
+                if(!subject){
+                    return res.status(404).json("Subject not found");
+                }
+                const updatedSubject=await Subject.findByIdAndUpdate(req.params.id,{
                         $set:req.body
                     },{new:true});
                     return res.status(200).json(updatedSubject)
-                }catch(err){
-                    return res.status(500).json(err);        
-                }
-                } else{
-                    return res.status(404).json("you can't uptade this account!!!")
-                }
             }catch(err){
                 return res.status(500).json(err);
             }
@@ -86,8 +76,6 @@ router.get("/getAll",async(req, res)=>
         res.status(500).json("you are not admin")
     }
 })
-
+  
 
 module.exports=router
-
-
