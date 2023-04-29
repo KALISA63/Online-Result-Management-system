@@ -33,7 +33,17 @@ router.post('/register',async(req,res)=>{
   try {
       const salt=await bcrypt.genSalt(10);
       const hashedPassword=await bcrypt.hash(req.body.password,salt);
-      const user=new User(req.body)
+      let newData = {};
+      if(req.body.studId){
+        newData = {...req.body,role:'student'}
+      } else if(req.body.lectId){
+        newData = {...req.body,role:'lecture'}
+      }
+      else {
+        newData = req.body
+      }
+      console.log("DATA",newData)
+      const user=new User(newData)
       const userExist=await User.findOne({email:req.body.email});
       if(userExist){
           return res.status(404).json({message:"Email exists, just try an other different email!!"})
@@ -42,7 +52,7 @@ router.post('/register',async(req,res)=>{
       await user.save();
       return res.status(200).json(user)
   } catch (error) {
-      return res.status(500).json({message:"Internal Server error", data:error})
+      return res.status(500).json({message:"Internal Server error", data:error.message})
   }
 })
 
@@ -121,6 +131,7 @@ router.get("/getAll", async (req, res) => {
     return res.status(500).json("you are not Admin");
   }
 });
+
 
 
 module.exports = router;

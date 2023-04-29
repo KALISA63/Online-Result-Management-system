@@ -49,7 +49,7 @@ router.post('/register',verifyLecture, async (req, res)=>{
         });
 
 
-//get Subject
+//get Mark
 
 router.get('/findById/:id',async(req,res)=>{
     try{
@@ -64,7 +64,7 @@ router.get('/findById/:id',async(req,res)=>{
     }
 });
 
-//get all SubjectS
+//get all Marks
 
 
 router.get("/getAll",async(req, res)=>
